@@ -66,6 +66,21 @@ Iniciar em: C:\caminho\da\pasta
 
 ## Problemas comuns
 
+- **"O arquivo ... não está assinado digitalmente"** — o Windows marca
+  arquivos baixados da internet (ZIP do GitHub, OneDrive) e a política da
+  empresa bloqueia scripts com essa marca. Os `.cmd` já desbloqueiam o script
+  automaticamente antes de rodar; se ainda assim aparecer o erro, desbloqueie
+  a pasta inteira uma única vez — abra o PowerShell e rode:
+
+  ```powershell
+  Unblock-File -Path "C:\caminho\da\pasta\*"
+  ```
+
+  (ou clique com o botão direito em cada arquivo → Propriedades → marque
+  **Desbloquear** → OK). Se mesmo desbloqueado o erro persistir, a política
+  de execução está travada por GPO da empresa (`Get-ExecutionPolicy -List`
+  mostra `MachinePolicy: AllSigned`) — nesse caso é preciso pedir ao TI para
+  assinar ou liberar o script.
 - **"Não foi possível ler a planilha"** — o robô lê o `.xlsx` pelo Excel
   instalado na máquina. Se o Excel não estiver instalado, salve a planilha
   também como `robo_risotolandia.csv` (CSV) na mesma pasta que o robô a usa
